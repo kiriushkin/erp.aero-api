@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import './sequelize.js';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
