@@ -32,6 +32,31 @@ class SigninControllers {
       res.status(500).send({ message: err.message });
     }
   }
+
+  async refreshToken(req, res) {
+    try {
+      const header = req.get('Authorization');
+
+      if (!header)
+        return res
+          .status(401)
+          .send({ message: 'Authorization header is missing.' });
+
+      const token = header.split(' ')[1];
+
+      const decode = signinService.verifyToken(token);
+
+      const { accessToken } = signinService.generateTokens({ id: decode.id });
+
+      res.send({ accessToken });
+    } catch (err) {
+      if (err.message === 'invalid signature')
+        return res.status(401).send({ message: 'Provided token is invalid.' });
+
+      console.error(err);
+      res.status(500).send({ message: err.message });
+    }
+  }
 }
 
 export default new SigninControllers();
