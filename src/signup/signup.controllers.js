@@ -19,7 +19,9 @@ class SignupControllers {
 
       await signupService.register({ id, password: hash });
 
-      res.status(201).send({ message: 'Cool' });
+      const tokens = signupService.generateTokens({ id });
+
+      res.status(201).send(tokens);
     } catch (err) {
       console.error(err);
       res.status(500).send({ message: err.message });
