@@ -2,3 +2,5 @@
 src/static/audio
 .DS_Store
 .env
+/public
+public/
