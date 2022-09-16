@@ -7,7 +7,6 @@ class FileService {
   }
 
   async uploadFile(file) {
-    console.log(file);
     const { originalname, mimetype, size, path } = file;
     const [name, ext] = originalname.split('.');
     const data = {
@@ -35,6 +34,27 @@ class FileService {
       raw: true,
       attributes: ['id', 'name', 'ext', 'mimetype', 'size', 'uploadDate'],
     });
+  }
+
+  async updateFile(oldData, file) {
+    fs.unlink(oldData.path);
+
+    const { originalname, mimetype, size, path } = file;
+    const [name, ext] = originalname.split('.');
+    const data = {
+      name,
+      ext,
+      mimetype,
+      size,
+      uploadDate: new Date(),
+      path,
+    };
+
+    await File.update(data, { where: { id: oldData.id } });
+
+    delete data.path;
+
+    return data;
   }
 
   async deleteFile(data) {
