@@ -7,6 +7,7 @@ import https from 'https';
 import cors from 'cors';
 import express from 'express';
 import routes from './routes.js';
+import docs from './docs/index.js';
 
 const { NODE_ENV, SSL_PATH, HOST, PORT } = process.env;
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: '*' }));
 
 app.use('/api', routes);
+app.use('/docs', docs);
 
 if (NODE_ENV === 'production') {
   const httpsServer = https.createServer(
