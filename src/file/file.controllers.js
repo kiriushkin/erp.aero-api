@@ -38,8 +38,6 @@ class FileControllers {
     try {
       const { list_size: listSize, page } = req.query;
 
-      console.log(listSize, page);
-
       const data = await fileService.getList(listSize, page);
 
       res.send(data);
