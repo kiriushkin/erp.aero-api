@@ -12,8 +12,6 @@ class SigninControllers {
 
       const user = await signinService.findUser(id);
 
-      console.log(user);
-
       if (!user) return res.status(404).send({ message: 'User not found.' });
 
       const isEqual = await signinService.comparePasswords(
@@ -52,6 +50,9 @@ class SigninControllers {
     } catch (err) {
       if (err.message === 'invalid signature')
         return res.status(401).send({ message: 'Provided token is invalid.' });
+
+      if (err.message === 'jwt expired')
+        return res.status(401).send({ message: 'Provided token is expired.' });
 
       console.error(err);
       res.status(500).send({ message: err.message });
