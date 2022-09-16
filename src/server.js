@@ -29,10 +29,10 @@ if (NODE_ENV === 'production') {
     },
     app
   );
-  httpsServer.listen(PORT, HOST);
+  httpsServer.listen(PORT);
 }
 
 if (NODE_ENV === 'development') {
   const httpServer = http.createServer(app);
-  httpServer.listen(PORT, HOST);
+  httpServer.listen(PORT);
 }
