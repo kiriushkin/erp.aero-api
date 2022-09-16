@@ -18,11 +18,11 @@ class FileService {
       path,
     };
 
-    await File.create(data);
+    const result = await File.create(data, { raw: true });
 
-    delete data.path;
+    delete result.path;
 
-    return data;
+    return result;
   }
 
   async getList(size = 10, page = 1) {
@@ -51,6 +51,8 @@ class FileService {
     };
 
     await File.update(data, { where: { id: oldData.id } });
+
+    data.id = oldData.id;
 
     delete data.path;
 
