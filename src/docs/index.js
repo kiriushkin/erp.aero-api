@@ -19,7 +19,7 @@ const options = {
         description: 'Development Server',
       },
       {
-        url: 'https://api.kiriushkin.pro/erp.aero-api/api',
+        url: 'https://api.kiriushkin.pro/erp.aero/api',
         description: 'Production Server',
       },
     ],
