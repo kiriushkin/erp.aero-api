@@ -29,6 +29,25 @@ class FileControllers {
       res.status(500).send({ message: err.message });
     }
   }
+
+  async delete(req, res) {
+    try {
+      if (!req.params.id)
+        return res.status(400).send({ message: 'File id is required.' });
+
+      const file = await fileService.getFile(req.params.id);
+
+      if (!file)
+        return res.status(404).send({ message: 'File does not exist.' });
+
+      await fileService.deleteFile(file);
+
+      res.send({ message: 'File deleted.' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({ message: err.message });
+    }
+  }
 }
 
 export default new FileControllers();

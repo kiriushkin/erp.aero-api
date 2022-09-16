@@ -8,5 +8,6 @@ const router = express.Router();
 
 router.post('/upload', upload.single('file'), fileControllers.upload);
 router.get('/list', fileControllers.list);
+router.delete('/delete/:id', fileControllers.delete);
 
 export default router;
